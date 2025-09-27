@@ -7,46 +7,77 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>인스타툰 주제 추천 — 프리미엄 게이트</title>
 <style>
+  /* ===== 밝은 올리브 테마 ===== */
   :root{
-    --bg:#0f172a; --card:#111827; --muted:#9ca3af; --text:#e5e7eb;
-    --accent:#22d3ee; --ok:#34d399; --warn:#f59e0b;
+    --bg:#eef5e6;          /* 라이트 올리브 베이스 */
+    --bg-ac1:#dfead2;      /* 은은한 올리브 하이라이트 1 */
+    --bg-ac2:#cfe0c2;      /* 은은한 올리브 하이라이트 2 */
+    --card:#ffffff;        /* 카드 바탕 */
+    --text:#243024;        /* 딥 올리브 텍스트 */
+    --muted:#6b776b;       /* 보조 텍스트 */
+    --accent:#5c8a3a;      /* 포커스/악센트 (올리브) */
+    --ok:#6aa84f;          /* 프라이머리 그린 */
+    --ok-d:#4e8e39;        /* 프라이머리 다크 */
+    --gold:#f0b429;        /* 프리미엄 골드 */
+    --gold-d:#d99817;      /* 프리미엄 골드 다크 */
+    --border:#d1e0c9;      /* 라이트 올리브 경계선 */
+    --chip:#f4f8ef;        /* 출력 박스 배경 */
   }
   *{box-sizing:border-box}
   body{
     margin:0;
-    background:radial-gradient(1200px 600px at 10% -10%, #083344 0%, transparent 60%),
-               radial-gradient(900px 500px at 100% 10%, #1f2937 0%, transparent 60%),
-               var(--bg);
+    background:
+      radial-gradient(1200px 600px at 10% -10%, var(--bg-ac1) 0%, transparent 60%),
+      radial-gradient(900px 500px at 100% 10%, var(--bg-ac2) 0%, transparent 60%),
+      var(--bg);
     color:var(--text);
     font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;
   }
   .wrap{max-width:980px;margin:32px auto;padding:0 16px}
   header{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-bottom:18px}
   .logo{font-weight:800;font-size:clamp(20px,2.8vw,28px);letter-spacing:.2px;display:flex;align-items:center;gap:10px}
-  .pill{font-size:12px;padding:4px 10px;border-radius:999px;background:#082f49;color:#a5f3fc;border:1px solid #0ea5b6}
+  .pill{font-size:12px;padding:4px 10px;border-radius:999px;background:#e6f1d9;color:#36522f;border:1px solid var(--border)}
   .notice{font-size:13px;color:var(--muted)}
-  .card{background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,.01));
-        border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:18px;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+  .card{
+    background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.95));
+    border:1px solid var(--border);
+    border-radius:18px;padding:18px;box-shadow:0 10px 26px rgba(36,48,36,.08)
+  }
   .row{display:flex;gap:14px;flex-wrap:wrap}
   .grow{flex:1 1 320px}
-  input,button,select{background:#0b1220;color:var(--text);border:1px solid rgba(255,255,255,.1);
-    border-radius:12px;padding:12px 14px;font-size:15px;outline:none}
-  input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(34,211,238,.15)}
-  button{cursor:pointer;transition:.2s transform,.2s opacity;font-weight:700}
-  button:hover{transform:translateY(-1px);opacity:.95}
-  .btn-primary{background:linear-gradient(180deg,#0ea5b6,#0891b2);border-color:#06b6d4}
-  .btn-premium{background:linear-gradient(180deg,#34d399,#10b981);border-color:#10b981}
-  .btn-ghost{background:#0b1220}
+  input,button,select{
+    background:#ffffff;color:var(--text);border:1px solid var(--border);
+    border-radius:12px;padding:12px 14px;font-size:15px;outline:none
+  }
+  input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(92,138,58,.15)}
+  button{cursor:pointer;transition:.2s transform,.2s opacity; font-weight:700}
+  button:hover{transform:translateY(-1px);opacity:.96}
+
+  /* 버튼 팔레트 - 올리브/골드 */
+  .btn-primary{
+    background:linear-gradient(180deg,var(--ok),var(--ok-d));
+    border-color:var(--ok-d); color:#fff;
+  }
+  .btn-premium{
+    background:linear-gradient(180deg,var(--gold),var(--gold-d));
+    border-color:var(--gold-d); color:#3b2c12;
+  }
+  .btn-ghost{background:#ffffff}
+
   .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
   .col-6{grid-column:span 6}.col-12{grid-column:span 12}
   @media(max-width:860px){.col-6{grid-column:span 12}}
-  .out{padding:14px;border-radius:14px;background:#0a0f1a;border:1px dashed rgba(255,255,255,.12)}
-  .lbl{font-size:12px;color:#a7f3d0;letter-spacing:.3px;text-transform:uppercase;margin-bottom:6px}
+
+  .out{
+    padding:14px;border-radius:14px;background:var(--chip);
+    border:1px dashed var(--border)
+  }
+  .lbl{font-size:12px;color:#3d5a33;letter-spacing:.3px;text-transform:uppercase;margin-bottom:6px}
   .big{font-size:clamp(18px,2.2vw,22px);font-weight:800;line-height:1.35}
-  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:#a5b4fc}
-  .tag{display:inline-block;padding:4px 8px;border-radius:999px;background:#0b1220;border:1px solid rgba(255,255,255,.12);margin-right:6px;margin-top:6px;font-size:12px}
+  .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:#3b5d2d}
+  .tag{display:inline-block;padding:4px 8px;border-radius:999px;background:#f2f7ea;border:1px solid var(--border);margin-right:6px;margin-top:6px;font-size:12px;color:#41583a}
   .flex-between{display:flex;justify-content:space-between;align-items:center;gap:10px}
-  .divider{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.12),transparent);margin:12px 0}
+  .divider{height:1px;background:linear-gradient(90deg,transparent,var(--border),transparent);margin:12px 0}
   .hidden{display:none}
   footer{margin-top:26px;font-size:12px;color:var(--muted)}
 </style>
@@ -62,9 +93,9 @@
     <div class="card">
       <div class="flex-between">
         <div>
-          <div style="font-size:12px;color:#93c5fd;letter-spacing:.3px">PREMIUM ACCESS</div>
+          <div style="font-size:12px;color:#3d5a33;letter-spacing:.3px">PREMIUM ACCESS</div>
           <div style="font-weight:800;font-size:18px;margin-top:4px">프리미엄 열기</div>
-          <div class="notice">비밀번호 입력 후 해제됩니다. (비밀번호는 공개하지 않습니다)</div>
+          <!-- 요청: 비밀번호 안내 문구 삭제 완료 -->
         </div>
         <div style="display:flex;gap:8px;align-items:center">
           <input id="pw" type="password" placeholder="비밀번호 입력" />
@@ -111,7 +142,6 @@
           </select>
         </div>
         <div class="grow" style="display:flex;align-items:flex-end;gap:8px">
-          <!-- (무료) 라벨 제거 완료 -->
           <button class="btn-primary" id="btnFree">오늘의 주제</button>
           <button class="btn-premium" id="btnPremium">프리미엄 추천</button>
         </div>
@@ -170,7 +200,7 @@
 /* ===== 유틸 & 사운드 ===== */
 const $ = (q)=>document.querySelector(q);
 
-// 더 귀여운 'blip' 사운드 (모바일/데스크톱 클릭에서만 재생, 자동재생 제한 우회)
+// 귀여운 blip 사운드
 function blip(freq=700, dur=0.12){
   try{
     const ctx = new (window.AudioContext||window.webkitAudioContext)();
@@ -199,16 +229,14 @@ function generatePremiumPool(n=160){const out=[];const {categories,settings,prot
 const premiumPool=generatePremiumPool();
 
 /* ===== 상태/인증 ===== */
-const PW='Whdirehfakdmf'; // 노출하지 않음(텍스트로 표시 제거)
+const PW='Whdirehfakdmf'; // 텍스트 노출 없음
 const STATE={isPremium:false,dataset:{free:freeData,premium:premiumPool}};
 function saveAuth(v){localStorage.setItem('instatoon_premium',v?'1':'0')}
 function loadAuth(){return localStorage.getItem('instatoon_premium')==='1'}
 function reflectAuth(){document.querySelector('#authState').textContent=STATE.isPremium?'unlocked':'locked';document.querySelectorAll('.prem').forEach(el=>el.classList.toggle('hidden',!STATE.isPremium));}
 
-/* ===== 추천 ===== */
+/* ===== 추천/복사 ===== */
 function drawOne({wantPremium=false}={}){const cat=$('#category').value;const diff=$('#difficulty').value;const pool=(wantPremium&&STATE.isPremium)?STATE.dataset.premium:STATE.dataset.free;let cand=pickByCategory(pool,cat);if(diff!=='any'){cand=cand.filter(x=>(x.difficulty||'보통')===diff);if(cand.length<1)cand=pool;}if(cand.length<1)cand=pool;const item=choice(cand);$('#outTopic').textContent=item.topic;$('#outHint').textContent=item.hint;$('#outMoney').textContent=item.money;if(STATE.isPremium){$('#outMarketing').textContent=item.mPoint||'—';$('#outBeats').textContent=item.beats||'—';$('#outCTA').textContent=item.cta||'—';}}
-
-/* ===== 복사 ===== */
 function copyAll(){const lines=[`# 인스타툰 주제`,`- 주제: ${$('#outTopic').textContent}`,`- 힌트: ${$('#outHint').textContent}`,`- 수익화: ${$('#outMoney').textContent}`];if(STATE.isPremium){lines.push(`- 마케팅 포인트: ${$('#outMarketing').textContent}`,`- 전개 템플릿: ${$('#outBeats').textContent}`,`- 참여 유도: ${$('#outCTA').textContent}`);}navigator.clipboard.writeText(lines.join('\n')).then(()=>{blip(800,.1);const b=$('#btnCopy');b.textContent='복사 완료!';setTimeout(()=>b.textContent='복사하기',1200);});}
 
 /* ===== 바인딩 ===== */
