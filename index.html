@@ -87,7 +87,7 @@
   <div class="wrap">
     <header>
       <div class="logo">인스타툰 주제 추천 <span class="pill">무료 + 프리미엄</span></div>
-      <div class="notice">버튼을 눌러 <b>주제·힌트·수익화</b>를 받고, <b>프리미엄</b>을 열면 마케팅 포인트·전개 템플릿·참여 유도까지 확장됩니다.</div>
+      <div class="notice">버튼을 눌러 <b>주제·힌트·수익화</b>를 받고, <b>프리미엄</b>을 열면 마케팅 포인트·전개 템플릿·팔로워 반응 유도까지 확장됩니다.</div>
     </header>
 
     <!-- 프리미엄 게이트 -->
@@ -151,15 +151,6 @@
             <option value="MZ 재테크 입문">MZ 재테크 입문</option>
           </select>
         </div>
-        <div class="grow">
-          <div class="lbl">난이도</div>
-          <select id="difficulty">
-            <option value="any">전체</option>
-            <option value="쉬움">쉬움</option>
-            <option value="보통">보통</option>
-            <option value="상세">상세(프리미엄)</option>
-          </select>
-        </div>
         <div class="grow" style="display:flex;align-items:flex-end;gap:8px">
           <button class="btn-primary" id="btnFree">오늘의 주제</button>
           <button class="btn-premium" id="btnPremium">프리미엄 추천</button>
@@ -174,12 +165,12 @@
       <div class="grid">
         <div class="col-12">
           <div class="lbl">주제</div>
-          <div id="outTopic" class="out big">버튼을 눌러 주제를 받아보세요! (항상 타겟·니즈·상품 연결)</div>
+          <div id="outTopic" class="out big">버튼을 눌러 주제를 받아보세요! (자연스러운 제목만 표시)</div>
         </div>
 
         <div class="col-6">
           <div class="lbl">핵심 힌트 (제작 가이드)</div>
-          <div id="outHint" class="out">Hook 한 줄 → 갈등 → 해결 → 상품/공구 연결의 자연스러운 브릿지.</div>
+          <div id="outHint" class="out">타겟 안내 + Hook 한 줄 → 공감 상황 → 해결 3단계 → 상품/공구로 자연스럽게 연결.</div>
         </div>
         <div class="col-6">
           <div class="lbl">수익화 아이디어</div>
@@ -192,11 +183,11 @@
         </div>
         <div class="col-4 prem hidden">
           <div class="lbl">스토리 전개 템플릿</div>
-          <div id="outBeats" class="out">Hook → 공감 → How-to → 변환(CTA)</div>
+          <div id="outBeats" class="out">Hook → 공감 → How-to → 변환(상품 연결)</div>
         </div>
         <div class="col-4 prem hidden">
-          <div class="lbl">참여 유도 멘트</div>
-          <div id="outCTA" class="out">“당신은 어떤 선택? 댓글로 1/2/3!”</div>
+          <div class="lbl">팔로워들의 반응</div>
+          <div id="outCTA" class="out">“당신은 어디에서 제일 막혀요? ① 식단 ② 운동 ③ 수면 — 댓글로 알려줘요!”</div>
         </div>
       </div>
 
@@ -239,25 +230,10 @@ function choice(arr){return arr[Math.floor(Math.random()*arr.length)]}
 function pickByCategory(arr,cat){return cat==='any'?arr:arr.filter(x=>x.category===cat)}
 function pickByTarget(arr,t){return t==='any'?arr:arr.filter(x=>x.target===t)}
 
-/* ===== 타겟/니즈/상품화 은행 ===== */
+/* ===== 타겟/상품화 자원 ===== */
 const TARGETS = [
   '자취생','수험생','대학생','신입사원','번아웃 직장인','프리랜서/창업가',
   '커플','신혼부부','초보 부모','반려동물 집사','건강 다이어터','MZ 재테크 입문'
-];
-
-const NEEDS = [
-  '위로가 필요한','시간을 절약하고 싶은','꾸준함이 부족한','금전적 압박이 있는',
-  '건강을 지키고 싶은','관계를 지키고 싶은','집중력이 흔들리는','아이디어가 부족한'
-];
-
-const OUTCOMES = [
-  '하루 10분 루틴을 만들고 싶은','지속 가능하게 변화하고 싶은','한 달 안에 가시적 변화를 보고 싶은',
-  '돈/시간 낭비를 줄이고 싶은','파트너와의 사이를 더 돈독히 하고 싶은','스트레스를 덜고 싶은'
-];
-
-const PRODUCT_OFFERS = [
-  '전자책(루틴/가이드) 발행','캘린더/템플릿(노션·PDF) 판매','커뮤니티/챌린지 멤버십',
-  '브랜드 협찬(관련 제품 리뷰/광고)','공동구매(실속 패키지)','코칭/클래스(1:다/1:1)'
 ];
 
 const CATEGORY_MAP = {
@@ -272,231 +248,146 @@ const CATEGORY_MAP = {
   '재테크/자기계발': ['MZ 재테크 입문','프리랜서/창업가','번아웃 직장인']
 };
 
-/* ===== 무료 데이터 (사람 공감형 60개 큐레이션: 모든 항목 타겟 포함) ===== */
+const HINT_RULES = [
+  'Hook 한 줄을 타겟의 언어로(존칭/반말 일관)',
+  '컷마다 글자는 12~16자 내외',
+  '실천 난이도 쉬움→보통→상세 순서',
+  '마지막 컷은 “내일도 가능” 메시지'
+];
+
+const MARKETING = [
+  '해시태그 5개 고정(#공감툰 #일상툰 #루틴 #성장 #기록)',
+  '시리즈 넘버링(EP.01→)으로 저장 유도',
+  '업로드 루틴: 화/금 19:30 고정',
+  '댓글 질문 1개 고정(선택형 1/2/3)',
+  '표지 톤&타입 일관 유지'
+];
+
+const BEATS = [
+  'Hook → 공감 상황 → How-to 3단계 → 결과(작은 변화) → 변환(상품 연결)',
+  'Hook(실수 공유) → 교훈 → 체크리스트 → 변환(상품 연결)',
+  'Hook(상황 공감) → 팁 1·2·3 → 미소 엔딩 → 변환(상품 연결)'
+];
+
+const REACTIONS = [
+  '당신은 어디에서 제일 막혀요? ① 식단 ② 운동 ③ 수면 — 댓글로 알려줘요!',
+  '오늘 내용이 도움 됐다면 저장하고 친구와 공유해요!',
+  '당신 상황에 더 맞는 팁이 있나요? 댓글로 추가 팁을 알려주세요!',
+  '다음 편에서 보고 싶은 주제를 적어주세요! (예: 야식, 아침 루틴, 회복 루틴)'
+];
+
+const PRODUCTS_BY_TARGET = {
+  '자취생': ['자취 레시피북 전자책','청소/정리 체크리스트 PDF','생활용품 공구'],
+  '수험생': ['플래너 PDF','암기카드 템플릿','집중앱 광고'],
+  '대학생': ['팀플/발표 템플릿','노션 템플릿','전자책(학기 운영)'],
+  '신입사원': ['업무 템플릿 묶음','보고서/메일 가이드 eBook','협업툴 광고'],
+  '번아웃 직장인': ['회복 루틴 전자책','명상/힐링 굿즈','디톡스 챌린지'],
+  '프리랜서/창업가': ['견적/계약 템플릿','운영 매뉴얼 eBook','생산성 툴 광고'],
+  '커플': ['커플 운동/대화 가이드 eBook','데이트 템플릿','커플앱 광고'],
+  '신혼부부': ['가사분담/가계 템플릿','관계 워크북','가전/인테리어 협찬'],
+  '초보 부모': ['육아 체크리스트 eBook','수면/이유식 가이드','유아용품 공구'],
+  '반려동물 집사': ['산책/훈련 체크리스트','케어 가이드 eBook','펫 용품 공구'],
+  '건강 다이어터': ['28일 스타터 eBook','식단표/기록지','보충제/홈트 공구'],
+  'MZ 재테크 입문': ['가계부/저축 시트','초보 재테크 가이드','금융앱 광고']
+};
+
+/* ===== 제목(주제) 생성 자원: 자연스러운 완결 문장/명사형으로 끝나게 ===== */
+const PAINS = ['번아웃','불안감','시간 부족','식비 스트레스','집중력 저하','살림 부담','운동 의지 저하','관계 갈등','반려동물 걱정','수면 부족','지출 폭주'];
+const GOALS = ['하루 10분 회복 루틴','지속 가능한 변화','기분 좋은 절약','관계 온도 유지','체력 회복','집중력 회복','정리정돈 습관','건강한 식단','평온한 수면','월말 결산 성공'];
+const MICROS = ['오늘 10분으로 시작하는 방법','한 장 체크리스트','작은 습관 3가지','타이머 30분 전략','한 줄 메모 루틴'];
+
+/* ===== 무료 데이터 (자연어 제목 / 타겟은 별도 표기) ===== */
 const freeData = [
-  {category:'연애/커플', target:'커플', difficulty:'쉬움',
-   topic:'커플운동으로 더 건강해지고 관계도 지키고 싶은 커플툰',
-   hint:'집에서 15분 루틴 → 서로 격려 컷 → 작은 변화 기록',
+  {category:'연애/커플', target:'커플',
+   topic:'사랑과 체력을 함께 지키는 커플 홈트 루틴',
+   hint:'서로 격려 컷 → 15분 루틴 → 작은 변화 기록',
    money:'커플 운동 루틴 전자책 / 홈트 매트 공구 / 헬스앱 제휴'},
 
-  {category:'학교/수험', target:'수험생', difficulty:'쉬움',
-   topic:'시험 전날 불안한 수험생을 위한 3컷 위로툰',
-   hint:'Hook: “오늘은 못해도 내일도 나는 나” → 체크리스트 간소화',
+  {category:'학교/수험', target:'수험생',
+   topic:'시험 전날 마음을 가라앉히는 3컷 위로 가이드',
+   hint:'“오늘은 못해도 내일의 나에게 기회” → 체크리스트 간소화',
    money:'수험생 플래너 PDF / 집중음악앱 광고'},
 
-  {category:'직장/사업', target:'번아웃 직장인', difficulty:'보통',
-   topic:'퇴근 후 30분 회복 루틴이 필요한 번아웃 직장인 힐링툰',
-   hint:'알림 끄기 → 산책 10분 → 간단 저널 3줄',
-   money:'힐링 저널 전자책 / 아로마 디퓨저 협찬'},
+  {category:'직장/사업', target:'번아웃 직장인',
+   topic:'퇴근 후 30분으로 피로를 비우는 저녁 회복 루틴',
+   hint:'알림 끄기 → 산책 10분 → 저널 3줄',
+   money:'힐링 저널 eBook / 아로마 디퓨저 협찬'},
 
-  {category:'취미/라이프', target:'자취생', difficulty:'쉬움',
-   topic:'냉장고 파먹기 챌린지로 식비 아끼는 자취생 생존툰',
-   hint:'“오늘은 있는 재료로” → 3가지 초간단 레시피',
+  {category:'취미/라이프', target:'자취생',
+   topic:'냉장고 파먹기로 지출을 줄이는 현실 살림 노하우',
+   hint:'“있는 재료 우선” → 3가지 초간단 레시피',
    money:'자취 레시피북 / 밀키트 공구'},
 
-  {category:'반려동물', target:'반려동물 집사', difficulty:'쉬움',
-   topic:'퇴근길 내내 강아지 걱정하는 반려견 집사 공감툰',
+  {category:'반려동물', target:'반려동물 집사',
+   topic:'퇴근길 불안을 줄이는 반려견 안심 루틴',
    hint:'CCTV 확인→안심→돌봄 팁 3가지',
    money:'펫 CCTV 광고 / 산책 리드 공구'},
 
-  {category:'육아/가정', target:'초보 부모', difficulty:'보통',
-   topic:'밤수·낮잠이 힘든 초보 부모를 위한 생존 툰',
-   hint:'부모 교대 루틴 → 나만의 10분 휴식',
-   money:'육아 생존 체크리스트 전자책 / 수면용품 협찬'},
+  {category:'육아/가정', target:'초보 부모',
+   topic:'밤수와 낮잠에 지치지 않기 위한 생존 체크리스트',
+   hint:'교대 루틴 → 나만의 10분 휴식',
+   money:'육아 생존 체크리스트 eBook / 수면용품 협찬'},
 
-  {category:'재테크/자기계발', target:'MZ 재테크 입문', difficulty:'보통',
-   topic:'월급 관리 처음 시작하는 MZ를 위한 가계부툰',
-   hint:'세 통장 시스템 → 자동저축 1%부터',
+  {category:'재테크/자기계발', target:'MZ 재테크 입문',
+   topic:'월급이 보이는 가계부 시작 가이드',
+   hint:'세 통장 → 자동저축 1%부터',
    money:'가계부 템플릿 / 금융앱 광고'},
 
-  {category:'직장/사업', target:'신입사원', difficulty:'쉬움',
-   topic:'첫 회사 적응에 진심인 신입사원을 위한 생존툰',
-   hint:'상사 커뮤니케이션 문장 템플릿',
-   money:'업무 커뮤니케이션 전자책 / 노션 템플릿'},
+  {category:'직장/사업', target:'신입사원',
+   topic:'첫 회사에서 인정받는 메모 한 장의 구조',
+   hint:'결론→근거→요청 템플릿',
+   money:'업무 커뮤니케이션 eBook / 노션 템플릿'},
 
-  {category:'연애/커플', target:'신혼부부', difficulty:'쉬움',
-   topic:'작은 갈등도 대화로 풀고 싶은 신혼부부 공감툰',
-   hint:'I-Message → 타임아웃 → 합의점 찾기',
-   money:'관계 대화 가이드 전자책 / 커플워크샵 광고'},
+  {category:'연애/커플', target:'신혼부부',
+   topic:'작은 갈등을 대화로 푸는 신혼의 대화 프레임',
+   hint:'I-Message → 타임아웃 → 합의점',
+   money:'관계 대화 가이드 / 커플 워크샵 광고'},
 
-  {category:'건강/운동', target:'건강 다이어터', difficulty:'쉬움',
-   topic:'빵을 포기 못하는 다이어터의 현실 공감툰',
+  {category:'건강/운동', target:'건강 다이어터',
+   topic:'빵을 포기하지 않고 균형을 지키는 식단 전략',
    hint:'대체식/균형/기록 3단계',
    money:'식단표 PDF / 단백질바 공구'},
-
-  /* 아래부터 다양한 타겟×카테고리 조합 확장 (인간 공감형 표현만 유지) */
-  {category:'학교/수험', target:'대학생', difficulty:'쉬움',
-   topic:'과제·팀플에 지친 대학생을 위한 멘탈케어툰',
-   hint:'일정 블록화 → 팀플 룰 3가지',
-   money:'팀플 가이드 전자책 / 노션 템플릿'},
-
-  {category:'직장/사업', target:'프리랜서/창업가', difficulty:'보통',
-   topic:'불규칙한 일정 속 루틴을 찾는 프리랜서 생존툰',
-   hint:'하루 앵커 타임 2개로 조직화',
-   money:'프리랜서 운영 매뉴얼 eBook / 툴 광고'},
-
-  {category:'연애/커플', target:'커플', difficulty:'보통',
-   topic:'싸웠을 때 대화의 문을 여는 커플 대화툰',
-   hint:'감정 표현→사실 정리→요청',
-   money:'커플 대화 템플릿 / 커플캠페인 광고'},
-
-  {category:'취미/라이프', target:'자취생', difficulty:'쉬움',
-   topic:'주말 방구석 대청소로 리셋하고 싶은 자취생 공감툰',
-   hint:'30분 타이머 → 구역별 퀘스트',
-   money:'청소 체크리스트 / 청소용품 공구'},
-
-  {category:'반려동물', target:'반려동물 집사', difficulty:'보통',
-   topic:'고양이 장난감 사봤자 박스 사랑하는 집사툰',
-   hint:'실패 담담히 → 맞춤 놀이 3가지',
-   money:'캣타워/스크래쳐 공구'},
-
-  {category:'육아/가정', target:'초보 부모', difficulty:'보통',
-   topic:'첫 이유식 앞두고 긴장하는 부모를 위한 가이드툰',
-   hint:'한 가지 재료→반응 기록→점진 확대',
-   money:'이유식 레시피북 / 이유식기 공구'},
-
-  {category:'재테크/자기계발', target:'MZ 재테크 입문', difficulty:'보통',
-   topic:'카드값 스트레스를 줄이는 MZ 소비관리툰',
-   hint:'구독정리→현금지출 한도',
-   money:'구독정리 템플릿 / 금융앱 광고'},
-
-  {category:'직장/사업', target:'번아웃 직장인', difficulty:'보통',
-   topic:'회의가 많은 날 살아남는 직장인 생존툰',
-   hint:'회의 거절 문장, 끝내기 질문',
-   money:'회의 가이드 전자책 / 협업툴 광고'},
-
-  {category:'건강/운동', target:'건강 다이어터', difficulty:'쉬움',
-   topic:'운동 0→1이 어려운 다이어터 스타터툰',
-   hint:'벽밀기 10회→스쿼트 5회→걷기 10분',
-   money:'28일 스타터 전자책 / 홈트밴드 공구'},
-
-  {category:'연애/커플', target:'신혼부부', difficulty:'보통',
-   topic:'가사분담으로 다투는 신혼부부 공감툰',
-   hint:'업무 분담표 → 주 1회 리셋',
-   money:'가사분담 템플릿 / 가전 광고'},
-
-  /* 40개 추가 (요약형) */
-  {category:'학교/수험', target:'수험생', difficulty:'쉬움', topic:'아침 뇌를 깨우는 수험생 루틴툰', hint:'물→햇빛→한 페이지', money:'모닝루틴 eBook / 스탠드 공구'},
-  {category:'학교/수험', target:'대학생', difficulty:'쉬움', topic:'개강 첫주 생존 대학생 안내툰', hint:'강의-알림-노트 즉시정리', money:'학기 플래너 PDF'},
-  {category:'직장/사업', target:'신입사원', difficulty:'쉬움', topic:'메모 한 장으로 칭찬받는 신입사원 팁툰', hint:'결론→근거→요청', money:'업무 템플릿'},
-  {category:'직장/사업', target:'번아웃 직장인', difficulty:'보통', topic:'일이 너무 많을 때 우선순위 재정렬툰', hint:'해야할 일/안해도 될 일', money:'우선순위 매트릭스 PDF'},
-  {category:'직장/사업', target:'프리랜서/창업가', difficulty:'보통', topic:'견적 보내는 법 모르는 프리랜서 견적툰', hint:'패키지/옵션/기한', money:'견적서 템플릿'},
-  {category:'연애/커플', target:'커플', difficulty:'쉬움', topic:'장거리 커플의 연결감 지키기툰', hint:'하루 사진 1장', money:'커플 앨범 앱 광고'},
-  {category:'연애/커플', target:'신혼부부', difficulty:'쉬움', topic:'이사 후 정리로 싸우지 않는 신혼부부툰', hint:'버리기 룰', money:'수납용품 공구'},
-  {category:'건강/운동', target:'건강 다이어터', difficulty:'쉬움', topic:'물만 잘 마셔도 달라지는 다이어터 수분툰', hint:'텀블러 인증', money:'워터트래커 공구'},
-  {category:'취미/라이프', target:'자취생', difficulty:'쉬움', topic:'세탁·청소 주간 루틴이 필요한 자취생툰', hint:'요일 분할', money:'청소 일정표 PDF'},
-  {category:'반려동물', target:'반려동물 집사', difficulty:'쉬움', topic:'첫 동물병원 앞두고 떨리는 집사툰', hint:'준비물/질문리스트', money:'캐리어 공구'},
-  {category:'육아/가정', target:'초보 부모', difficulty:'보통', topic:'슬기로운 장보기, 아기 먹거리 편', hint:'성분표 읽기', money:'장보기 체크리스트'},
-  {category:'재테크/자기계발', target:'MZ 재테크 입문', difficulty:'보통', topic:'비상금 50만원 만들기 챌린지툰', hint:'소액 자동저축', money:'저축 챌린지 eBook'},
-  {category:'학교/수험', target:'수험생', difficulty:'보통', topic:'암기 과목 스토리텔링으로 붙잡기툰', hint:'키워드 3개로 이야기', money:'암기카드 템플릿'},
-  {category:'학교/수험', target:'대학생', difficulty:'보통', topic:'교수님 메일 공손하게 쓰는 법툰', hint:'제목/인사/핵심', money:'메일 템플릿'},
-  {category:'직장/사업', target:'신입사원', difficulty:'쉬움', topic:'회의 때 말문 여는 문장툰', hint:'정중한 질문 3', money:'질문 리스트 PDF'},
-  {category:'직장/사업', target:'번아웃 직장인', difficulty:'보통', topic:'월요일 공포 줄이는 전날 준비툰', hint:'의상/할일 3', money:'월요 루틴 eBook'},
-  {category:'직장/사업', target:'프리랜서/창업가', difficulty:'보통', topic:'클라이언트 피드백 덜 아프게 받기툰', hint:'프레임 바꾸기', money:'피드백 가이드'},
-  {category:'연애/커플', target:'커플', difficulty:'보통', topic:'데이트비 절약, 즐거움은 유지하는 커플툰', hint:'무료 데이트 5', money:'데이트 가이드 eBook'},
-  {category:'연애/커플', target:'신혼부부', difficulty:'보통', topic:'가계 합치기 첫 달 체크리스트툰', hint:'공동계좌/한도', money:'가계부 템플릿'},
-  {category:'건강/운동', target:'건강 다이어터', difficulty:'보통', topic:'폭식 후 회복 루틴툰', hint:'수분/산책/수면', money:'회복 루틴 PDF'},
-  {category:'취미/라이프', target:'자취생', difficulty:'쉬움', topic:'하루 10분 초록식물 케어로 힐링하는 자취생툰', hint:'물/햇빛/먼지', money:'식물 케어 카드'},
-  {category:'반려동물', target:'반려동물 집사', difficulty:'보통', topic:'강아지 분리불안 줄이기 시작툰', hint:'짧은 외출 훈련', money:'간식 공구'},
-  {category:'육아/가정', target:'초보 부모', difficulty:'보통', topic:'첫 어린이집 적응하는 아이와 부모툰', hint:'루틴/이별 인사', money:'적응 체크리스트'},
-  {category:'재테크/자기계발', target:'MZ 재테크 입문', difficulty:'보통', topic:'월말 텅장 방지 결산툰', hint:'카테고리별 합계', money:'결산 시트'},
-  {category:'학교/수험', target:'수험생', difficulty:'쉬움', topic:'휴대폰과 거리두기 수험생툰', hint:'타이머 앱', money:'집중 앱 광고'},
-  {category:'학교/수험', target:'대학생', difficulty:'쉬움', topic:'교양에서 인싸되는 발표팁툰', hint:'훅-핵심-질문', money:'발표 템플릿'},
-  {category:'직장/사업', target:'신입사원', difficulty:'쉬움', topic:'보고서 표지만 달라져도 달라 보이는 신입툰', hint:'폰트/여백', money:'보고서 템플릿'},
-  {category:'직장/사업', target:'번아웃 직장인', difficulty:'보통', topic:'퇴근 후 SNS 디톡스로 마음 지키기툰', hint:'알림오프', money:'디지털 디톡스 eBook'},
-  {category:'직장/사업', target:'프리랜서/창업가', difficulty:'보통', topic:'영수증 지옥 탈출 프리랜서 회계툰', hint:'영수증 스캔', money:'회계 시트/앱'},
-  {category:'연애/커플', target:'커플', difficulty:'쉬움', topic:'사과 잘하는 커플의 한 문장툰', hint:'I-Message', money:'대화 템플릿'},
-  {category:'연애/커플', target:'신혼부부', difficulty:'쉬움', topic:'부부 합의 체크리스트툰', hint:'가사/돈/명절', money:'합의서 템플릿'},
-  {category:'건강/운동', target:'건강 다이어터', difficulty:'쉬움', topic:'아침 스트레칭 3가지로 허리 살리기툰', hint:'목/어깨/허리', money:'스트레칭카드'},
-  {category:'취미/라이프', target:'자취생', difficulty:'쉬움', topic:'셀프 인테리어로 행복도 올리는 자취생툰', hint:'작은 조명', money:'조명 공구'},
-  {category:'반려동물', target:'반려동물 집사', difficulty:'쉬움', topic:'산책 예절을 배우는 강아지와 집사툰', hint:'리드 짧게', money:'훈련 간식'},
-  {category:'육아/가정', target:'초보 부모', difficulty:'보통', topic:'부모 번갈아 자기시간 갖기 프로젝트', hint:'캘린더 분담', money:'가사분담 시트'},
-  {category:'재테크/자기계발', target:'MZ 재테크 입문', difficulty:'보통', topic:'소비습관 일주일만 관찰하기툰', hint:'기록→패턴', money:'소비 추적 시트'},
-  {category:'학교/수험', target:'수험생', difficulty:'보통', topic:'슬럼프 주간을 통과하는 마음가짐툰', hint:'완벽주의 내려놓기', money:'슬럼프 가이드'},
-  {category:'학교/수험', target:'대학생', difficulty:'보통', topic:'알바·학업 병행생 타임블록킹툰', hint:'블럭 시간표', money:'타임블록 템플릿'},
-  {category:'직장/사업', target:'신입사원', difficulty:'보통', topic:'슬랙/메신저 예절 기본툰', hint:'이모지/요약', money:'커뮤니케이션 가이드'},
-  {category:'직장/사업', target:'번아웃 직장인', difficulty:'보통', topic:'성과보다 과정 칭찬하는 셀프리뷰툰', hint:'주간 회고', money:'회고 노트'},
-  {category:'직장/사업', target:'프리랜서/창업가', difficulty:'보통', topic:'내 작업 단가 올리는 법 첫걸음툰', hint:'작업 분해', money:'단가표 템플릿'},
-  {category:'연애/커플', target:'커플', difficulty:'보통', topic:'기념일 과부하 줄이는 커플 플래닝툰', hint:'한 달 미리', money:'캘린더 템플릿'},
-  {category:'연애/커플', target:'신혼부부', difficulty:'보통', topic:'명절 생존 커뮤니케이션툰', hint:'경계/휴식', money:'명절 생존 가이드'},
-  {category:'건강/운동', target:'건강 다이어터', difficulty:'보통', topic:'야식 욕구 다루는 밤 루틴툰', hint:'허기/수면', money:'야식 대안 리스트'},
-  {category:'취미/라이프', target:'자취생', difficulty:'쉬움', topic:'분리수거 헷갈릴 때 보는 자취생툰', hint:'배출 요령', money:'분리수거 카드'},
-  {category:'반려동물', target:'반려동물 집사', difficulty:'보통', topic:'동물병원 질문 리스트 10', hint:'증상/기간/식습관', money:'문진표 PDF'},
-  {category:'육아/가정', target:'초보 부모', difficulty:'보통', topic:'육아휴직 복귀 준비툰', hint:'케어 플랜', money:'복귀 체크리스트'},
-  {category:'재테크/자기계발', target:'MZ 재테크 입문', difficulty:'보통', topic:'지출이 쌓이는 이유 5가지툰', hint:'인지/대처', money:'절약 습관 eBook'},
-  {category:'학교/수험', target:'수험생', difficulty:'보통', topic:'스마트폰 유혹 이기는 장치 만들기툰', hint:'앱 제한', money:'디톡스 템플릿'},
-  {category:'학교/수험', target:'대학생', difficulty:'보통', topic:'레퍼런스 찾는 법 초보자툰', hint:'키워드/인용', money:'자료조사 가이드'},
-  {category:'직장/사업', target:'신입사원', difficulty:'보통', topic:'상사 스타일 파악 노트툰', hint:'관찰 포인트', money:'상사노트 PDF'},
-  {category:'직장/사업', target:'번아웃 직장인', difficulty:'보통', topic:'메일함 0 만들기 주간 정리툰', hint:'아카이브 규칙', money:'메일 규칙 템플릿'},
-  {category:'직장/사업', target:'프리랜서/창업가', difficulty:'보통', topic:'하루를 계획하는 3가지 질문툰', hint:'가치/한일/한일것', money:'플래너 템플릿'},
-  {category:'연애/커플', target:'커플', difficulty:'보통', topic:'서로의 애착언어를 알아보는 커플툰', hint:'말/시간/선물/봉사/스킨십', money:'워크시트'},
-  {category:'건강/운동', target:'건강 다이어터', difficulty:'보통', topic:'식단 앱에 휘둘리지 않는 법', hint:'원칙 3', money:'식단 시트'},
-  {category:'취미/라이프', target:'자취생', difficulty:'쉬움', topic:'월세/관리비 스트레스 줄이는 팁툰', hint:'예산/상담', money:'예산 시트'},
-  {category:'반려동물', target:'반려동물 집사', difficulty:'보통', topic:'반려견 산책 루트 최적화툰', hint:'짧게-길게', money:'루트 지도 템플릿'},
 ];
 
-/* ===== 프리미엄 조합 생성기 (사람 공감형 300개) ===== */
+/* ===== 프리미엄 조합 생성기 (자연어 제목, 문장 완결 보장) ===== */
+function makeTitle(){
+  const pain = choice(PAINS);
+  const goal = choice(GOALS);
+  const micro = choice(MICROS);
+  // 완결된 명사형/문장형으로만 반환
+  return choice([
+    `${pain}을 줄이는 ${goal}`,
+    `${goal}을 만드는 ${micro}`,
+    `${micro}으로 시작하는 ${goal}`,
+    `작은 습관으로 완성하는 ${goal}`,
+    `오늘부터 실천하는 ${goal}`
+  ]);
+}
+
 const GEN = {
   categories: Object.keys(CATEGORY_MAP),
-  targets: TARGETS,
-  needs: NEEDS,
-  outcomes: OUTCOMES,
-  products: PRODUCT_OFFERS,
-  beats: [
-    'Hook(공감 한 줄) → 문제(현실) → How-to(3단계) → 결과(작은 변화) → CTA',
-    'Hook(상황 공감) → 팁 1·2·3 → 미소 엔딩 → CTA',
-    'Hook(실수 공유) → 교훈 → 체크리스트 → CTA'
-  ],
-  marketing: [
-    '해시태그 5개 고정(#공감툰 #일상툰 #루틴 #성장 #기록)',
-    '시리즈 넘버링(EP.01→)으로 저장 유도',
-    '업로드 루틴: 화/금 19:30 고정',
-    '댓글 질문 1개 고정(선택형 1/2/3)',
-    '표지 톤&타입 일관 유지'
-  ],
-  hints: [
-    'Hook 한 줄을 타겟의 언어로(존칭/반말 일관)',
-    '컷마다 글자는 12~16자 내외',
-    '실천 난이도 쉬움→보통→상세 순서',
-    '마지막 컷은 “내일도 가능” 메시지'
-  ],
-  productByTarget: {
-    '자취생': ['자취 레시피북 전자책','청소/정리 체크리스트 PDF','생활용품 공구'],
-    '수험생': ['플래너 PDF','암기카드 템플릿','집중앱 광고'],
-    '대학생': ['팀플/발표 템플릿','노션 템플릿','전자책(학기 운영)'],
-    '신입사원': ['업무 템플릿 묶음','보고서/메일 가이드 eBook','협업툴 광고'],
-    '번아웃 직장인': ['회복 루틴 전자책','명상/힐링 굿즈','디톡스 챌린지'],
-    '프리랜서/창업가': ['견적/계약 템플릿','운영 매뉴얼 eBook','생산성 툴 광고'],
-    '커플': ['커플 운동/대화 가이드 eBook','데이트 템플릿','커플앱 광고'],
-    '신혼부부': ['가사분담/가계 템플릿','관계 워크북','가전/인테리어 협찬'],
-    '초보 부모': ['육아 체크리스트 eBook','수면/이유식 가이드','유아용품 공구'],
-    '반려동물 집사': ['산책/훈련 체크리스트','케어 가이드 eBook','펫 용품 공구'],
-    '건강 다이어터': ['28일 스타터 eBook','식단표/기록지','보충제/홈트 공구'],
-    'MZ 재테크 입문': ['가계부/저축 시트','초보 재테크 가이드','금융앱 광고']
-  }
+  beats: BEATS,
+  marketing: MARKETING
 };
 
 function generatePremiumPool(n=300){
   const out = [];
-  const set = new Set();
+  const seen = new Set();
   while(out.length<n){
     const category = choice(GEN.categories);
-    const targetPool = CATEGORY_MAP[category] || GEN.targets;
+    const targetPool = CATEGORY_MAP[category] || TARGETS;
     const target = choice(targetPool);
-    const need = choice(GEN.needs);
-    const outcome = choice(GEN.outcomes);
-    const product = choice([...(GEN.productByTarget[target]||[]), ...GEN.products]);
-    const topic = `${target}을(를) 위한 ${category} 인스타툰: ${need} ${target}이(가) ${outcome}`;
-    const hint = `${choice(GEN.hints)} / 팁: ${need.replace('한','')} 니즈를 3컷 안에 해결 단계로 제시`;
-    const money = `${product} / 브랜드 협찬·공구 연계 가능`;
+    const title = makeTitle();                 // 제목은 타겟/카테고리 제외
+    const hint = `${choice(HINT_RULES)} / 타겟: ${target} / 카테고리: ${category}`;
+    const product = choice([...(PRODUCTS_BY_TARGET[target]||[]), '브랜드 협찬(관련 제품 리뷰/광고)','공동구매(실속 패키지)','코칭/클래스(1:다/1:1)']);
+    const money = `${product}`;
     const mPoint = choice(GEN.marketing);
     const beats = choice(GEN.beats);
-    const cta = '당신 상황에 더 맞는 팁은? ① ② ③ 댓글로 알려줘!';
-    const difficulty = choice(['쉬움','보통','상세']);
-    const key = `${topic}|${target}`;
-    if(!set.has(key)){
-      set.add(key);
-      out.push({category, target, difficulty, topic, hint, money, mPoint, beats, cta});
+    const cta = choice(REACTIONS);
+    const key = `${category}|${target}|${title}`;
+    if(!seen.has(key)){
+      seen.add(key);
+      out.push({category, target, topic:title, hint, money, mPoint, beats, cta});
     }
   }
   return out;
@@ -511,41 +402,28 @@ const STATE={isPremium:false,dataset:{free:freeData,premium:premiumPool}};
 function saveAuth(v){localStorage.setItem('instatoon_premium',v?'1':'0')}
 function loadAuth(){return localStorage.getItem('instatoon_premium')==='1'}
 function reflectAuth(){
-  $('#authState').textContent=STATE.isPremium?'unlocked':'locked';
-  document.querySelectorAll('.prem').forEach(el=>el.classList.toggle('hidden',!STATE.isPremium));
+  $('#authState').textContent = STATE.isPremium ? 'unlocked' : 'locked';
+  document.querySelectorAll('.prem').forEach(el=>el.classList.toggle('hidden', !STATE.isPremium));
 }
 
-/* ===== 추천 로직 (카테고리+타겟+난이도 필터, 항상 타겟 포함) ===== */
+/* ===== 추천 로직 (카테고리+타겟 필터, 제목은 깔끔하게) ===== */
 function drawOne({wantPremium=false}={}){
   const cat = $('#category').value;
   const tgt = $('#target').value;
-  const diff = $('#difficulty').value;
 
-  // 풀 선택
-  const poolBase = (wantPremium && STATE.isPremium) ? STATE.dataset.premium : STATE.dataset.free;
+  const base = (wantPremium && STATE.isPremium) ? STATE.dataset.premium : STATE.dataset.free;
 
-  // 카테고리/타겟 필터
-  let cand = poolBase;
-  if(cat!=='any') cand = cand.filter(x=>x.category===cat);
-  if(tgt!=='any') cand = cand.filter(x=>x.target===tgt);
-  if(diff!=='any') cand = cand.filter(x=>(x.difficulty||'보통')===diff);
-
-  // 만약 너무 좁아졌다면 완화
-  if(cand.length<1){
-    cand = poolBase.filter(x=>(cat==='any'||x.category===cat) && (tgt==='any'||x.target===tgt));
-    if(diff!=='any' && cand.length<1) cand = poolBase;
-  }
+  let cand = base.filter(x=> (cat==='any'||x.category===cat) && (tgt==='any'||x.target===tgt));
+  if(cand.length<1) cand = base;
 
   const item = choice(cand);
-
-  // 출력
-  $('#outTopic').textContent = item.topic;
-  $('#outHint').textContent = `타겟: ${item.target} / ${item.hint}`;
+  $('#outTopic').textContent = item.topic;   // 제목에 타겟/카테고리 미포함
+  $('#outHint').textContent  = `타겟: ${item.target} / ${item.hint.replace(/^타겟:[^/]+\/\s*카테고리:[^/]+\/?\s*/,'')}`;
   $('#outMoney').textContent = item.money;
   if(STATE.isPremium){
     $('#outMarketing').textContent = item.mPoint || '—';
-    $('#outBeats').textContent = item.beats || '—';
-    $('#outCTA').textContent = item.cta || '—';
+    $('#outBeats').textContent     = item.beats || '—';
+    $('#outCTA').textContent       = item.cta   || '—';
   }
 }
 
@@ -561,7 +439,7 @@ function copyAll(){
     lines.push(
       `- 마케팅 포인트: ${$('#outMarketing').textContent}`,
       `- 전개 템플릿: ${$('#outBeats').textContent}`,
-      `- 참여 유도: ${$('#outCTA').textContent}`
+      `- 팔로워들의 반응: ${$('#outCTA').textContent}`
     );
   }
   navigator.clipboard.writeText(lines.join('\n')).then(()=>{blip(800,.1);
