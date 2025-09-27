@@ -5,23 +5,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>인스타툰 주제 추천 — 프리미엄 게이트</title>
+<title>인스타툰 주제 추천 — 타겟/니즈 기반 프리미엄</title>
 <style>
   /* ===== 밝은 올리브 테마 ===== */
   :root{
-    --bg:#eef5e6;          /* 라이트 올리브 베이스 */
-    --bg-ac1:#dfead2;      /* 은은한 올리브 하이라이트 1 */
-    --bg-ac2:#cfe0c2;      /* 은은한 올리브 하이라이트 2 */
-    --card:#ffffff;        /* 카드 바탕 */
-    --text:#243024;        /* 딥 올리브 텍스트 */
-    --muted:#6b776b;       /* 보조 텍스트 */
-    --accent:#5c8a3a;      /* 포커스/악센트 (올리브) */
-    --ok:#6aa84f;          /* 프라이머리 그린 */
-    --ok-d:#4e8e39;        /* 프라이머리 다크 */
-    --gold:#f0b429;        /* 프리미엄 골드 */
-    --gold-d:#d99817;      /* 프리미엄 골드 다크 */
-    --border:#d1e0c9;      /* 라이트 올리브 경계선 */
-    --chip:#f4f8ef;        /* 출력 박스 배경 */
+    --bg:#eef5e6; --bg-ac1:#dfead2; --bg-ac2:#cfe0c2;
+    --card:#ffffff; --text:#243024; --muted:#6b776b;
+    --accent:#5c8a3a; --ok:#6aa84f; --ok-d:#4e8e39;
+    --gold:#f0b429; --gold-d:#d99817; --border:#d1e0c9; --chip:#f4f8ef;
   }
   *{box-sizing:border-box}
   body{
@@ -40,38 +31,25 @@
   .notice{font-size:13px;color:var(--muted)}
   .card{
     background:linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.95));
-    border:1px solid var(--border);
-    border-radius:18px;padding:18px;box-shadow:0 10px 26px rgba(36,48,36,.08)
+    border:1px solid var(--border); border-radius:18px; padding:18px;
+    box-shadow:0 10px 26px rgba(36,48,36,.08)
   }
   .row{display:flex;gap:14px;flex-wrap:wrap}
-  .grow{flex:1 1 320px}
+  .grow{flex:1 1 280px}
   input,button,select{
     background:#ffffff;color:var(--text);border:1px solid var(--border);
     border-radius:12px;padding:12px 14px;font-size:15px;outline:none
   }
   input:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 4px rgba(92,138,58,.15)}
-  button{cursor:pointer;transition:.2s transform,.2s opacity; font-weight:700}
+  button{cursor:pointer;transition:.2s transform,.2s opacity;font-weight:700}
   button:hover{transform:translateY(-1px);opacity:.96}
-
-  /* 버튼 팔레트 - 올리브/골드 */
-  .btn-primary{
-    background:linear-gradient(180deg,var(--ok),var(--ok-d));
-    border-color:var(--ok-d); color:#fff;
-  }
-  .btn-premium{
-    background:linear-gradient(180deg,var(--gold),var(--gold-d));
-    border-color:var(--gold-d); color:#3b2c12;
-  }
+  .btn-primary{background:linear-gradient(180deg,var(--ok),var(--ok-d));border-color:var(--ok-d);color:#fff}
+  .btn-premium{background:linear-gradient(180deg,var(--gold),var(--gold-d));border-color:var(--gold-d);color:#3b2c12}
   .btn-ghost{background:#ffffff}
-
   .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
-  .col-6{grid-column:span 6}.col-12{grid-column:span 12}
-  @media(max-width:860px){.col-6{grid-column:span 12}}
-
-  .out{
-    padding:14px;border-radius:14px;background:var(--chip);
-    border:1px dashed var(--border)
-  }
+  .col-4{grid-column:span 4}.col-6{grid-column:span 6}.col-12{grid-column:span 12}
+  @media(max-width:900px){.col-4,.col-6{grid-column:span 12}}
+  .out{padding:14px;border-radius:14px;background:var(--chip);border:1px dashed var(--border)}
   .lbl{font-size:12px;color:#3d5a33;letter-spacing:.3px;text-transform:uppercase;margin-bottom:6px}
   .big{font-size:clamp(18px,2.2vw,22px);font-weight:800;line-height:1.35}
   .mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;color:#3b5d2d}
@@ -85,8 +63,8 @@
 <body>
   <div class="wrap">
     <header>
-      <div class="logo">인스타툰 주제 추천 <span class="pill">무료 + 프리미엄</span></div>
-      <div class="notice">버튼을 눌러 <b>주제·힌트·수익화</b>를 받고, <b>프리미엄</b>을 열면 마케팅 포인트·전개 템플릿·참여 유도까지 확장됩니다.</div>
+      <div class="logo">인스타툰 주제 추천 <span class="pill">타겟 기반 · 프리미엄</span></div>
+      <div class="notice">항상 <b>타겟</b>과 <b>필요(도움/위로/공감)</b>가 포함됩니다. 프리미엄을 열면 <b>마케팅 포인트·전개 템플릿·참여 유도</b>까지!</div>
     </header>
 
     <!-- 프리미엄 게이트 -->
@@ -95,7 +73,6 @@
         <div>
           <div style="font-size:12px;color:#3d5a33;letter-spacing:.3px">PREMIUM ACCESS</div>
           <div style="font-weight:800;font-size:18px;margin-top:4px">프리미엄 열기</div>
-          <!-- 요청: 비밀번호 안내 문구 삭제 완료 -->
         </div>
         <div style="display:flex;gap:8px;align-items:center">
           <input id="pw" type="password" placeholder="비밀번호 입력" />
@@ -118,6 +95,23 @@
     <!-- 컨트롤 -->
     <div class="card">
       <div class="row">
+        <div class="grow">
+          <div class="lbl">타겟</div>
+          <select id="audience">
+            <option value="any">전체</option>
+            <option value="커플-장거리">장거리 커플</option>
+            <option value="커플-운동">커플 운동을 시작한 커플</option>
+            <option value="직장인-초년생">직장인 초년생</option>
+            <option value="프리랜서-디자이너">프리랜서 디자이너</option>
+            <option value="1인가구-절약">1인가구(절약/요리 초보)</option>
+            <option value="초보집사">초보 집사(고양이/강아지)</option>
+            <option value="수험생">수험생(고3/취준)</option>
+            <option value="교사-초등">초등 교사</option>
+            <option value="알바생-카페">카페 알바생</option>
+            <option value="부모-초보">초보 부모(영유아)</option>
+            <option value="자영업-소상공">소상공인(카페/샵)</option>
+          </select>
+        </div>
         <div class="grow">
           <div class="lbl">카테고리</div>
           <select id="category">
@@ -154,36 +148,41 @@
     <div class="card">
       <div class="grid">
         <div class="col-12">
-          <div class="lbl">주제</div>
-          <div id="outTopic" class="out big">버튼을 눌러 주제를 받아보세요!</div>
+          <div class="lbl">주제 (타겟 포함)</div>
+          <div id="outTopic" class="out big">타겟을 고르고 버튼을 눌러 주세요!</div>
         </div>
-        <div class="col-6">
+
+        <div class="col-4">
+          <div class="lbl">타겟 & 필요</div>
+          <div id="outNeed" class="out">예: 장거리 커플 · 연결감 회복/데이트 아이디어</div>
+        </div>
+        <div class="col-4">
           <div class="lbl">힌트 (전개 아이디어)</div>
-          <div id="outHint" class="out">캐릭터/시점/반전/오마주 등 간단한 제작 힌트</div>
+          <div id="outHint" class="out">캐릭터/시점/반전/오마주 등</div>
         </div>
-        <div class="col-6">
-          <div class="lbl">수익화 아이디어</div>
-          <div id="outMoney" class="out">굿즈·디지털 판매·협업·연재 확장 등</div>
+        <div class="col-4">
+          <div class="lbl">상품화 경로</div>
+          <div id="outMoney" class="out">전자책/공구/광고로 수익화</div>
         </div>
 
         <!-- 프리미엄 -->
         <div class="col-6 prem hidden">
           <div class="lbl">마케팅 포인트</div>
-          <div id="outMarketing" class="out">후킹 포인트/브랜딩/해시태그·리포스트 전략</div>
+          <div id="outMarketing" class="out">후킹 문구/시리즈화/UGC 유도/해시태그</div>
         </div>
         <div class="col-6 prem hidden">
           <div class="lbl">스토리 전개 템플릿</div>
-          <div id="outBeats" class="out">Hook → 갈등 → 반전 → 공감 → 저장/공유</div>
+          <div id="outBeats" class="out">Hook → 갈등 → 해결 → 반전 → 저장/공유</div>
         </div>
         <div class="col-12 prem hidden">
           <div class="lbl">참여 유도 멘트</div>
-          <div id="outCTA" class="out">“여러분은 어떤 선택? 1/2/3 댓글!”</div>
+          <div id="outCTA" class="out">“당신이라면? 1/2/3 중 선택!”</div>
         </div>
       </div>
 
       <div class="divider"></div>
       <div class="flex-between">
-        <div class="notice">복사해서 바로 캡션에 붙여 넣기!</div>
+        <div class="notice">복사하면 바로 캡션에 활용 가능!</div>
         <div style="display:flex;gap:8px">
           <button class="btn-ghost" id="btnCopy">복사하기</button>
           <button class="btn-ghost" id="btnNew">다시 뽑기</button>
@@ -192,22 +191,18 @@
     </div>
 
     <footer>
-      Made by 조약돌마을 · Premium Gate Demo · (주의) 실제 유료화/보안은 서버 인증이 필요함
+      Made by 조약돌마을 · Target-first Premium · (주의) 실제 유료화/보안은 서버 인증이 필요함
     </footer>
   </div>
 
 <script>
 /* ===== 유틸 & 사운드 ===== */
 const $ = (q)=>document.querySelector(q);
-
-// 귀여운 blip 사운드
 function blip(freq=700, dur=0.12){
   try{
     const ctx = new (window.AudioContext||window.webkitAudioContext)();
-    const o = ctx.createOscillator();
-    const g = ctx.createGain();
-    o.type = 'sine';
-    o.frequency.value = freq;
+    const o = ctx.createOscillator(), g = ctx.createGain();
+    o.type = 'sine'; o.frequency.value = freq;
     g.gain.setValueAtTime(0.0001, ctx.currentTime);
     g.gain.exponentialRampToValueAtTime(0.08, ctx.currentTime + 0.01);
     g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
@@ -215,38 +210,242 @@ function blip(freq=700, dur=0.12){
     o.start(); o.stop(ctx.currentTime + dur + 0.02);
   }catch(e){}
 }
-
 function choice(arr){return arr[Math.floor(Math.random()*arr.length)]}
 function pickByCategory(arr,cat){return cat==='any'?arr:arr.filter(x=>x.category===cat)}
+function pickByAudience(arr,aud){return aud==='any'?arr:arr.filter(x=>x.audienceKey===aud)}
 
-/* ===== 무료 데이터(간결 32개) ===== */
-const freeData=[{category:'일상공감',difficulty:'쉬움',topic:'알람과의 밀당',hint:'알람이 의인화되어 주인공과 썸타듯 대화. 마지막엔 “또 내일 보자” 엔딩.',money:'알람 배경화면·벨소리 디지털 굿즈 / 수면 브랜드 콜라보'},{category:'학교/학생',difficulty:'쉬움',topic:'급식의 속마음',hint:'식판·국자·우유팩이 서로의 고충을 털어놓는 4컷.',money:'급식 밈 스티커팩 / 교육 플랫폼 콜라보 콘텐츠'},{category:'직장/사업',difficulty:'보통',topic:'카톡 읽씹의 미학',hint:'말풍선 캐릭터가 “읽음 1”과 “읽음 0”으로 분열대립.',money:'직장인 공감 굿즈 / 업무툴 광고 연계'},{category:'연애/관계',difficulty:'보통',topic:'데이트 일정 회의',hint:'캘린더·메모앱·지갑이 회의하는 회의록 형태.',money:'데이트 플래너 템플릿 / 협업 데이트앱 제휴'},{category:'트렌드/밈',difficulty:'쉬움',topic:'밈 한 숟갈',hint:'유행 밈을 “과하게” 뿌리는 요리사 캐릭터.',money:'밈 사운드팩 / 숏폼 묶음 패키지'},{category:'동물/사물의인화',difficulty:'쉬움',topic:'충전기들의 회의',hint:'C타입·라이트닝·마그세이프가 서로 서열 정리.',money:'케이블 타이/스티커 / 모바일 악세사리 샵 콜라보'},{category:'취미/라이프',difficulty:'보통',topic:'운동 시작 버튼이 고장',hint:'“내일부터” 버튼이 실제로 찢겨있음. 오늘 버튼과의 화해.',money:'습관체크 노트 / 운동앱 제휴 쿠폰'},{category:'자기계발/마음',difficulty:'쉬움',topic:'작심삼일의 반전',hint:'3일마다 리스폰하는 캐릭터. 레벨업 시스템 도입.',money:'도전 미션 PDF / 후원 멤버십(주간 챌린지)'},{category:'일상공감',difficulty:'쉬움',topic:'세탁기 던전',hint:'양말이 사라지는 판타지 맵',money:'양말 캐릭터 굿즈'},{category:'일상공감',difficulty:'쉬움',topic:'택배의 모험',hint:'문앞까지의 RPG 여정',money:'문구/스티커팩'},{category:'학교/학생',difficulty:'쉬움',topic:'지우개의 속삭임',hint:'틀린답 지워주는 심리',money:'교사용/수험생 굿즈'},{category:'학교/학생',difficulty:'보통',topic:'시험지의 회상',hint:'오답과 정답의 대화',money:'학습툰 연재→전자책'},{category:'직장/사업',difficulty:'보통',topic:'회의는 왜 길까',hint:'의자·프로젝터의 불만',money:'업무툴 제휴/키트'},{category:'직장/사업',difficulty:'보통',topic:'프레젠테이션 공포',hint:'슬라이드가 달아남',money:'템플릿 판매'},{category:'연애/관계',difficulty:'쉬움',topic:'안읽씹의 해명',hint:'기지국 장애가 주인공',money:'문자템플릿/엽서'},{category:'연애/관계',difficulty:'보통',topic:'썸의 온도계',hint:'섭씨/화씨가 다툼',money:'연애 체크카드'},{category:'트렌드/밈',difficulty:'쉬움',topic:'댓글 고래 소환',hint:'좋아요 고래가 등장',money:'댓글 챌린지 스폰서'},{category:'트렌드/밈',difficulty:'쉬움',topic:'필터 과다 국',hint:'필터를 요리처럼 뿌림',money:'프리셋/룩북 판매'},{category:'동물/사물의인화',difficulty:'쉬움',topic:'우산의 일기',hint:'비오는 날만 출근',money:'우산커버/스티커'},{category:'동물/사물의인화',difficulty:'쉬움',topic:'머그컵 상담소',hint:'카페인 조절 상담',money:'머그/굿즈 번들'},{category:'취미/라이프',difficulty:'쉬움',topic:'테트리스 냉장고',hint:'정리의 쾌감',money:'정리템 제휴'},{category:'취미/라이프',difficulty:'보통',topic:'식물과의 동거',hint:'몬스테라가 불만',money:'플랜트샵 콜라보'},{category:'자기계발/마음',difficulty:'쉬움',topic:'마감과의 동거',hint:'마감이 캐릭터',money:'플래너/코칭'},{category:'자기계발/마음',difficulty:'보통',topic:'작은 성공 도감',hint:'레벨업 스탬프',money:'도감 PDF/키트'},{category:'일상공감',difficulty:'쉬움',topic:'엘리베이터 소식지',hint:'층마다 뉴스',money:'건물 제휴 광고'},{category:'학교/학생',difficulty:'쉬움',topic:'교복의 비밀 포켓',hint:'사탕 저장고',money:'교복 굿즈'},{category:'직장/사업',difficulty:'보통',topic:'퇴근 요정',hint:'퇴근 버튼 소환',money:'바탕화면/포스터'},{category:'연애/관계',difficulty:'보통',topic:'첫 DM의 문법',hint:'오해/호감 사이',money:'캡션 템플릿'},{category:'트렌드/밈',difficulty:'쉬움',topic:'밈 재택근무',hint:'밈이 피곤해함',money:'밈 카드세트'},{category:'동물/사물의인화',difficulty:'쉬움',topic:'양말의 복수',hint:'짝을 찾는 여정',money:'양말굿즈'},{category:'취미/라이프',difficulty:'쉬움',topic:'홈카페 비밀',hint:'거품의 과학',money:'레시피 카드'},{category:'자기계발/마음',difficulty:'쉬움',topic:'딱 10분 규칙',hint:'마찰 최소화',money:'챌린지 멤버십'},{category:'일상공감',difficulty:'쉬움',topic:'지갑의 회의',hint:'현금/카드/포인트',money:'가계부 템플릿'},{category:'학교/학생',difficulty:'보통',topic:'동아리 선거전',hint:'공약의 허와 실',money:'포스터 템플릿'},{category:'직장/사업',difficulty:'보통',topic:'슬랙의 밤',hint:'읽음이 잠들지 않음',money:'알림 관리 가이드'},{category:'연애/관계',difficulty:'보통',topic:'기념일 제조기',hint:'작은 이벤트 모음',money:'키트/쿠폰북'},{category:'취미/라이프',difficulty:'보통',topic:'런닝화의 고백',hint:'마일리지 회상',money:'러닝 로그북'},{category:'자기계발/마음',difficulty:'보통',topic:'칭찬 수집상자',hint:'자존감 탑쌓기',money:'감사 저널'}];
+/* ===== 타겟 사전 =====
+   - label: UI 표기
+   - need: 공감/도움 포인트(필수 포함)
+   - productHooks: 해당 타겟에 적합한 상품화 방향(전자책/공구/광고)
+*/
+const AUDIENCES = {
+  '커플-장거리':{label:'장거리 커플', need:'연결감 회복·데이트 아이디어', productHooks:['장거리 커플 데이트 전자책','영상통화 게임 킷(공구)','커플앱 광고']},
+  '커플-운동':{label:'커플 운동을 시작한 커플', need:'운동 루틴·동기부여', productHooks:['커플 홈트 루틴 전자책','스트랩/매트 공구','피트니스 브랜드 스폰서']},
+  '직장인-초년생':{label:'직장인 초년생', need:'업무 자신감·커뮤니케이션', productHooks:['신입 생존가이드 전자책','회의노트/템플릿 공구','생산성 앱 광고']},
+  '프리랜서-디자이너':{label:'프리랜서 디자이너', need:'견적/고객응대·번아웃 관리', productHooks:['견적/계약서 템플릿 전자책','IP 라이선스 키트 공구','툴/폰트 광고']},
+  '1인가구-절약':{label:'1인가구(절약/요리 초보)', need:'가성비 식단·살림 루틴', productHooks:['1인 식단 전자책','밀프렙 용기 공구','마트/배달앱 광고']},
+  '초보집사':{label:'초보 집사(고양이/강아지)', need:'건강/훈련·생활 루틴', productHooks:['초보 집사 케어 전자책','스크래처/하네스 공구','펫푸드 광고']},
+  '수험생':{label:'수험생(고3/취준)', need:'불안 완화·공부 루틴', productHooks:['공부 계획 전자책','타이머/플래너 공구','교육 플랫폼 광고']},
+  '교사-초등':{label:'초등 교사', need:'학급운영·소통', productHooks:['학급 운영 전자책','상장/공지 템플릿 공구','문구/에듀테크 광고']},
+  '알바생-카페':{label:'카페 알바생', need:'컴플레인 대응·셀프보호', productHooks:['알바 대응 전자책','방수메모/벨 공구','채용/POS 광고']},
+  '부모-초보':{label:'초보 부모(영유아)', need:'수면·수유·감정 케어', productHooks:['초보 부모 생존 전자책','수면짜개/턱받이 공구','베이비 브랜드 광고']},
+  '자영업-소상공':{label:'소상공인(카페/샵)', need:'홍보·메뉴/재고·동네마케팅', productHooks:['동네마케팅 전자책','사인보드/메뉴판 공구','결제/배달앱 광고']},
+};
 
-/* ===== 프리미엄 풀(조합형 160개) ===== */
-const BANK={categories:['일상공감','학교/학생','직장/사업','연애/관계','트렌드/밈','동물/사물의인화','취미/라이프','자기계발/마음'],settings:['비 오는 날','출근길','야자시간','동아리 방','카페 구석','지하철 2호선','엘리베이터','편의점','운동장','도서관'],protagonists:['우산','알람','식판','시험지','프리젠테이션 리모컨','지갑','휴대폰 배터리','양말','머그컵','캘린더'],twists:['주객전도','시간루프','의인화 심문극','반전 인터뷰','대체 현실','기억 상실','숨겨진 규칙','공포의 과장','소소한 영웅담'],beatsTemplates:['Hook(강한 공감 한 줄) → 문제(난관) → 시도(웃픈 해결) → 반전(의외의 시선) → CTA(저장/공유)','Hook(밈 오마주) → 갈등(불일치) → 성장(미세 변화) → 훈훈 엔딩 → CTA(댓글 유도)','Hook(캐릭터 소개) → 소동(예상 밖 반응) → 교훈(짧은 울림) → CTA(친구 소환)'],marketing:['해시태그 5개 고정(#공감툰 #일상툰 #짤툰 #기승전결 #루틴)','시리즈 넘버링(EP.01→02)로 저장 유도','커버 한 장 고정(브랜드 컬러/폰트 일관)','리포스트 이벤트(댓글에 친구 소환)','금·일 업로드(주 2회, 시간대 AB테스트)'],monetization:['굿즈(스티커/머그/배경화면) 번들','전자책/PDF 모음(에피소드 50선)','브랜드/매장 지역 협업 컷','유튜브 숏폼 묶음→광고 수익','멤버십(비하인드/원본 스케치)','연재 확장(네컷→롱폼)','교육/학교 행사 포스터','템플릿/폰트/프리셋 디지털 상품'],hints:['사물이 1인칭으로 불평→마지막에 주인공 응원','밈 1개만 절제 삽입(과하지 않게)','색 2~3개 제한 팔레트','표정 3종(기본/당황/뿌듯)만으로도 충분','반전 “사실 난 너 응원하고 있었어”','자막은 컷당 12자 내외'],ctas:['여러분은 어떤 선택? ①②③ 댓글!','내일 이어갈까요? 저장해두면 편해요!','공감 친구 태그 👉 @','당신 버전으로 리메이크 도전?'],difficultyWeights:[{name:'쉬움',weight:4},{name:'보통',weight:3},{name:'상세',weight:3}]};
-function choice(arr){return arr[Math.floor(Math.random()*arr.length)]}
-function generatePremiumPool(n=160){const out=[];const {categories,settings,protagonists,twists,monetization,hints,beatsTemplates,marketing,ctas,difficultyWeights}=BANK;const diffPool=difficultyWeights.flatMap(d=>Array(d.weight).fill(d.name));while(out.length<n){const category=choice(categories);const difficulty=choice(diffPool);const set=choice(settings);const pro=choice(protagonists);const tw=choice(twists);const topic=`${set}의 ${pro} — ${tw}`;const hint=`${choice(hints)} / 오마주: ${tw}`;const money=choice(monetization);const mPoint=choice(marketing);const beats=choice(beatsTemplates);const cta=choice(ctas);if(!out.some(x=>x.topic===topic)){out.push({category,difficulty,topic,hint,money,mPoint,beats,cta});}}return out;}
-const premiumPool=generatePremiumPool();
+/* ===== 무료 데이터: 모두 타겟 포함(예시 28개) ===== */
+const freeData = [
+  {audienceKey:'커플-운동', category:'연애/관계', difficulty:'쉬움',
+   topic:'커플운동으로 사랑·건강 지키기 네컷',
+   need:'커플 운동 루틴이 작심삼일로 끝나지 않게',
+   hint:'서로의 “핑계”를 귀엽게 의인화 → 미션 보상 스탬프',
+   money:'전자책: 커플 홈트 4주 루틴 · 공구: 미니 밴드/요가매트 · 광고: 홈트앱'},
+  {audienceKey:'커플-장거리', category:'연애/관계', difficulty:'보통',
+   topic:'영상통화 데이트 10분 루틴',
+   need:'거리 속 연결감 회복',
+   hint:'통화 전 “감사 1문장” → 게임 1개 → 내일 미션',
+   money:'전자책: 30일 챌린지 · 공구: 미니게임 카드 · 광고: 커플앱'},
+  {audienceKey:'직장인-초년생', category:'직장/사업', difficulty:'보통',
+   topic:'신입의 회의 생존기',
+   need:'말 꺼내기/메모 구조',
+   hint:'회의 “키워드→질문→액션” 3칸 노트',
+   money:'전자책: 신입 생존가이드 · 공구: 회의노트 · 광고: 생산성툴'},
+  {audienceKey:'1인가구-절약', category:'취미/라이프', difficulty:'쉬움',
+   topic:'3천원으로 이틀 식단',
+   need:'가성비/건강 밸런스',
+   hint:'냉장고 테트리스→한번에 3끼 준비',
+   money:'전자책: 1인 식단 · 공구: 밀프렙 용기 · 광고: 장보기앱'},
+  {audienceKey:'초보집사', category:'동물/사물의인화', difficulty:'쉬움',
+   topic:'고양이와 인간의 합의서',
+   need:'긁기/급식/화장실 트러블',
+   hint:'스크래처·화장실 “협약 조항” 네컷',
+   money:'전자책: 집사 스타트 · 공구: 스크래처 · 광고: 펫푸드'},
+  {audienceKey:'수험생', category:'학교/학생', difficulty:'쉬움',
+   topic:'불안 3분 리셋 루틴',
+   need:'시험 불안/번아웃',
+   hint:'호흡→미니목표→셀프칭찬',
+   money:'전자책: 루틴 도감 · 공구: 타이머/플래너 · 광고: 강의플랫폼'},
+  {audienceKey:'교사-초등', category:'학교/학생', difficulty:'보통',
+   topic:'학급 규칙을 만화로',
+   need:'규칙 전파/학부모 소통',
+   hint:'아이 캐릭터가 규칙을 직접 제안',
+   money:'전자책: 학급운영 · 공구: 상장/알림장 템플릿 · 광고: 에듀테크'},
+  {audienceKey:'알바생-카페', category:'일상공감', difficulty:'쉬움',
+   topic:'컴플레인 대응 3문장',
+   need:'감정노동 완충',
+   hint:'“확인→대안→감사” 카드',
+   money:'전자책: 알바 생존기 · 공구: 방수메모 · 광고: 채용/POS'},
+  {audienceKey:'부모-초보', category:'자기계발/마음', difficulty:'보통',
+   topic:'밤수·수면 루틴 네컷',
+   need:'수면 박살난 초보부모',
+   hint:'부모/아기 감정 분리 → 루틴 카드',
+   money:'전자책: 수면 가이드 · 공구: 수면짜개 · 광고: 베이비브랜드'},
+  {audienceKey:'자영업-소상공', category:'직장/사업', difficulty:'보통',
+   topic:'동네마케팅 1일 1콘텐츠',
+   need:'재방문/리뷰 활성화',
+   hint:'“신메뉴 미션/단골 스토리” 시리즈',
+   money:'전자책: 동네마케팅 · 공구: 메뉴판/사인보드 · 광고: 배달앱'},
+  /* + 타겟별 추가 예시들 */
+  {audienceKey:'프리랜서-디자이너', category:'직장/사업', difficulty:'보통', topic:'고객 유형별 대응툰', need:'피곤한 말 바꾸기', hint:'“수정 무한”을 명확화 카드', money:'전자책: 견적/계약 · 공구: 계약서/브리프 템플릿 · 광고: 디자인툴'},
+  {audienceKey:'직장인-초년생', category:'직장/사업', difficulty:'쉬움', topic:'메일 제목 공식 5', need:'읽히는 커뮤니케이션', hint:'[액션][기한][요약] 포맷', money:'전자책: 커뮤 가이드 · 공구: 템플릿 · 광고: 이메일툴'},
+  {audienceKey:'1인가구-절약', category:'취미/라이프', difficulty:'쉬움', topic:'자취 청소 10분 룬', need:'귀찮음 방지', hint:'타이머+구역 쪼개기', money:'전자책: 살림 루틴 · 공구: 청소툴키트 · 광고: 홈케어'},
+  {audienceKey:'수험생', category:'학교/학생', difficulty:'보통', topic:'과목별 암기 밈화', need:'지루함 타파', hint:'밈+암기카드', money:'전자책: 밈 암기장 · 공구: 프린터/용지 · 광고: 학습앱'},
+  {audienceKey:'커플-장거리', category:'연애/관계', difficulty:'보통', topic:'택배 데이트', need:'기다림 설렘 회복', hint:'편지+랜덤 굿즈 상자', money:'전자책: 기획서 · 공구: 포장키트 · 광고: 택배/쇼핑몰'},
+  {audienceKey:'초보집사', category:'동물/사물의인화', difficulty:'쉬움', topic:'산책 거부 犬의 진심', need:'리드·훈련 스트레스', hint:'의인화 인터뷰', money:'전자책: 산책 가이드 · 공구: 하네스 · 광고: 펫트레이닝'},
+  {audienceKey:'교사-초등', category:'학교/학생', difficulty:'쉬움', topic:'학부모 소통 3줄법', need:'갈등 줄이기', hint:'사실-감정-요청', money:'전자책: 소통 가이드 · 공구: 공지 템플릿 · 광고: 커뮤니케이션앱'},
+  {audienceKey:'알바생-카페', category:'일상공감', difficulty:'쉬움', topic:'피크타임 생존 매뉴얼', need:'체력/동선 최적화', hint:'역할 분담 네컷', money:'전자책: 운영 팁 · 공구: 타이머/벨 · 광고: 매장툴'},
+  {audienceKey:'부모-초보', category:'자기계발/마음', difficulty:'쉬움', topic:'부부교대 체크리스트', need:'번아웃 예방', hint:'기분/수면/돌봄 교대표', money:'전자책: 돌봄 분담 · 공구: 화이트보드 · 광고: 베이비케어'},
+  {audienceKey:'자영업-소상공', category:'직장/사업', difficulty:'보통', topic:'리뷰 회신 템플릿툰', need:'악성리뷰 대응', hint:'감사→사과→해결', money:'전자책: 리뷰 전략 · 공구: 답변 템플릿 · 광고: 평판관리'},
+  {audienceKey:'프리랜서-디자이너', category:'직장/사업', difficulty:'보통', topic:'견적이야기 네컷', need:'가격 스트레스', hint:'가치기반 설명법', money:'전자책: 정가전략 · 공구: 계산시트 · 광고: 회계툴'},
+  {audienceKey:'직장인-초년생', category:'자기계발/마음', difficulty:'쉬움', topic:'피드백 덜 무섭게', need:'멘탈 보호', hint:'자기기록→요청문', money:'전자책: 피드백 가이드 · 공구: 저널 · 광고: 멘탈앱'},
+  {audienceKey:'1인가구-절약', category:'취미/라이프', difficulty:'쉬움', topic:'전기요금 줄이는 습관', need:'광열비 절약', hint:'타이머/절전탭', money:'전자책: 절약 도감 · 공구: 절전 멀티탭 · 광고: 전기요금앱'},
+  {audienceKey:'수험생', category:'학교/학생', difficulty:'쉬움', topic:'모의고사 멘탈 복구', need:'자책 방지', hint:'실수 도감', money:'전자책: 멘탈 리셋 · 공구: 스터디카드 · 광고: 학습앱'},
+  {audienceKey:'커플-운동', category:'연애/관계', difficulty:'쉬움', topic:'데이트 대신 30분 홈트', need:'시간 부족', hint:'동작 4세트 루틴', money:'전자책: 커플 홈트 · 공구: 타이머 · 광고: 피트니스'},
+  {audienceKey:'초보집사', category:'동물/사물의인화', difficulty:'쉬움', topic:'간식 협상 테이블', need:'과식 방지', hint:'계약서 패러디', money:'전자책: 급여 가이드 · 공구: 퍼즐그릇 · 광고: 펫브랜드'},
+];
+
+/* ===== 프리미엄 조합기: 타겟/필요/상품화 강제 포함 ===== */
+const BANK = {
+  categories:['일상공감','학교/학생','직장/사업','연애/관계','트렌드/밈','동물/사물의인화','취미/라이프','자기계발/마음'],
+  settings:['집','출근길','야간자기','동아리방','카페 구석','지하철','엘리베이터','편의점','운동장','도서관'],
+  protagonists:['달력','메신저말풍선','체크리스트','저금통','알람','머그컵','양말','우산','휴대폰배터리','식판'],
+  twists:['작은 승리','시간루프 끊기','역할 바꾸기','협약/계약','가성비 실험','감정 인터뷰','룰 정하기'],
+  beatsTemplates:[
+    'Hook(타겟 공감 한 줄) → 갈등(현실 난관) → 시도(미세 행동) → 반전(웃픈 깨달음) → CTA',
+    'Hook(문제 제시) → 옵션 A/B → 선택/결과 → 기록 습관 → CTA',
+    'Hook(니즈 드러내기) → 팁 3개 → 적용 장면 → 저장/공유 유도'
+  ],
+  marketing:[
+    '시리즈 넘버링(EP.01→02)로 저장 유도',
+    'UGC 리메이크 이벤트(템플릿 공유)',
+    '해시태그 5개 고정(#공감툰 #룰루틴 #타겟툰 #기승전결 #소소한승리)',
+    '금·일 고정 업로드(주 2회, 시간대 AB테스트)',
+  ],
+  ctas:[
+    '당신 상황에선 A/B 중? 댓글로!',
+    '내일 이어가요—저장하면 편해요!',
+    '친구 태그해서 함께 도전 👉 @',
+    '당신 버전으로 리메이크해봐요!',
+  ],
+  monetizationGeneric:[
+    '전자책: 루틴/템플릿 모음',
+    '공구: 노트/타이머/보관함',
+    '광고: 관련 앱/브랜드'
+  ],
+  difficultyWeights:[{name:'쉬움',weight:4},{name:'보통',weight:3},{name:'상세',weight:3}]
+};
+
+function generatePremiumPool(n=220){
+  const out=[];
+  const diffPool = BANK.difficultyWeights.flatMap(d=>Array(d.weight).fill(d.name));
+  const audienceKeys = Object.keys(AUDIENCES);
+
+  while(out.length<n){
+    const audKey = choice(audienceKeys);
+    const aud = AUDIENCES[audKey];
+    const category = choice(BANK.categories);
+    const difficulty = choice(diffPool);
+    const set = choice(BANK.settings);
+    const pro = choice(BANK.protagonists);
+    const tw = choice(BANK.twists);
+
+    const topic = `[${aud.label}] ${set}의 ${pro} — ${tw}`;
+    const need = `${aud.label} · 필요: ${aud.need}`;
+    const hint = `미세 행동 1개 + 기록 습관 1개(예: ${tw})`;
+    const money = `${choice(aud.productHooks)} · 보완: ${choice(BANK.monetizationGeneric)}`;
+    const mPoint = choice(BANK.marketing);
+    const beats = choice(BANK.beatsTemplates);
+    const cta = choice(BANK.ctas);
+
+    if(!out.some(x=>x.topic===topic)){
+      out.push({audienceKey:audKey, category, difficulty, topic, need, hint, money, mPoint, beats, cta});
+    }
+  }
+  return out;
+}
+let premiumPool = generatePremiumPool();
 
 /* ===== 상태/인증 ===== */
-const PW='Whdirehfakdmf'; // 텍스트 노출 없음
+const PW='Whdirehfakdmf'; // 화면에 노출하지 않음
 const STATE={isPremium:false,dataset:{free:freeData,premium:premiumPool}};
 function saveAuth(v){localStorage.setItem('instatoon_premium',v?'1':'0')}
 function loadAuth(){return localStorage.getItem('instatoon_premium')==='1'}
-function reflectAuth(){document.querySelector('#authState').textContent=STATE.isPremium?'unlocked':'locked';document.querySelectorAll('.prem').forEach(el=>el.classList.toggle('hidden',!STATE.isPremium));}
+function reflectAuth(){
+  $('#authState').textContent = STATE.isPremium ? 'unlocked' : 'locked';
+  document.querySelectorAll('.prem').forEach(el=> el.classList.toggle('hidden', !STATE.isPremium));
+}
 
-/* ===== 추천/복사 ===== */
-function drawOne({wantPremium=false}={}){const cat=$('#category').value;const diff=$('#difficulty').value;const pool=(wantPremium&&STATE.isPremium)?STATE.dataset.premium:STATE.dataset.free;let cand=pickByCategory(pool,cat);if(diff!=='any'){cand=cand.filter(x=>(x.difficulty||'보통')===diff);if(cand.length<1)cand=pool;}if(cand.length<1)cand=pool;const item=choice(cand);$('#outTopic').textContent=item.topic;$('#outHint').textContent=item.hint;$('#outMoney').textContent=item.money;if(STATE.isPremium){$('#outMarketing').textContent=item.mPoint||'—';$('#outBeats').textContent=item.beats||'—';$('#outCTA').textContent=item.cta||'—';}}
-function copyAll(){const lines=[`# 인스타툰 주제`,`- 주제: ${$('#outTopic').textContent}`,`- 힌트: ${$('#outHint').textContent}`,`- 수익화: ${$('#outMoney').textContent}`];if(STATE.isPremium){lines.push(`- 마케팅 포인트: ${$('#outMarketing').textContent}`,`- 전개 템플릿: ${$('#outBeats').textContent}`,`- 참여 유도: ${$('#outCTA').textContent}`);}navigator.clipboard.writeText(lines.join('\n')).then(()=>{blip(800,.1);const b=$('#btnCopy');b.textContent='복사 완료!';setTimeout(()=>b.textContent='복사하기',1200);});}
+/* ===== 추천 ===== */
+function drawOne({wantPremium=false}={}){
+  const cat = $('#category').value;
+  const diff = $('#difficulty').value;
+  const aud = $('#audience').value;
+
+  const pool = (wantPremium && STATE.isPremium) ? STATE.dataset.premium : STATE.dataset.free;
+
+  // 필터 (타겟 → 카테고리 → 난이도)
+  let cand = pickByAudience(pool, aud);
+  if(cat!=='any') cand = cand.filter(x=>x.category===cat);
+  if(diff!=='any') cand = cand.filter(x=> (x.difficulty||'보통')===diff);
+  if(cand.length<1) cand = pool; // 백업
+
+  const item = choice(cand);
+
+  // 출력 (항상 타겟/필요/상품화 포함)
+  $('#outTopic').textContent = item.topic;
+  $('#outNeed').textContent  = item.need || '타겟의 필요 포인트';
+  $('#outHint').textContent  = item.hint;
+  $('#outMoney').textContent = item.money;
+
+  if(STATE.isPremium){
+    $('#outMarketing').textContent = item.mPoint || '—';
+    $('#outBeats').textContent     = item.beats || '—';
+    $('#outCTA').textContent       = item.cta || '—';
+  }
+}
+
+/* ===== 복사 ===== */
+function copyAll(){
+  const lines = [
+    `# 인스타툰 주제(타겟 포함)`,
+    `- 주제: ${$('#outTopic').textContent}`,
+    `- 타겟&필요: ${$('#outNeed').textContent}`,
+    `- 힌트: ${$('#outHint').textContent}`,
+    `- 상품화: ${$('#outMoney').textContent}`,
+  ];
+  if(STATE.isPremium){
+    lines.push(
+      `- 마케팅 포인트: ${$('#outMarketing').textContent}`,
+      `- 전개 템플릿: ${$('#outBeats').textContent}`,
+      `- 참여 유도: ${$('#outCTA').textContent}`
+    );
+  }
+  navigator.clipboard.writeText(lines.join('\n')).then(()=> {
+    blip(800,.1);
+    const b=$('#btnCopy'); b.textContent='복사 완료!'; setTimeout(()=>b.textContent='복사하기',1200);
+  });
+}
 
 /* ===== 바인딩 ===== */
-window.addEventListener('DOMContentLoaded',()=>{STATE.isPremium=loadAuth();reflectAuth();
-  $('#btnUnlock').addEventListener('click',()=>{const v=($('#pw').value||'').trim();if(v===PW){STATE.isPremium=true;saveAuth(true);reflectAuth();blip(720,.12);drawOne({wantPremium:true});}else{alert('비밀번호가 올바르지 않습니다.');blip(320,.08);}});
-  $('#btnLock').addEventListener('click',()=>{STATE.isPremium=false;saveAuth(false);reflectAuth();blip(500,.08);});
-  $('#btnFree').addEventListener('click',()=>{drawOne({wantPremium:false});blip(700,.1);});
-  $('#btnPremium').addEventListener('click',()=>{if(!STATE.isPremium){alert('프리미엄 열기 후 사용 가능합니다.');blip(320,.08);return;}drawOne({wantPremium:true});blip(760,.1);});
-  $('#btnNew').addEventListener('click',()=>{const premiumWanted=STATE.isPremium&&Math.random()>.4;drawOne({wantPremium:premiumWanted});blip(680,.1);});
-  $('#btnCopy').addEventListener('click',copyAll);
+window.addEventListener('DOMContentLoaded', ()=>{
+  STATE.isPremium = loadAuth();
+  reflectAuth();
+
+  $('#btnUnlock').addEventListener('click', ()=>{
+    const v = ($('#pw').value||'').trim();
+    if(v===PW){ STATE.isPremium=true; saveAuth(true); reflectAuth(); blip(720,.12); drawOne({wantPremium:true}); }
+    else { alert('비밀번호가 올바르지 않습니다.'); blip(320,.08); }
+  });
+  $('#btnLock').addEventListener('click', ()=>{ STATE.isPremium=false; saveAuth(false); reflectAuth(); blip(500,.08); });
+
+  $('#btnFree').addEventListener('click', ()=>{ drawOne({wantPremium:false}); blip(700,.1); });
+  $('#btnPremium').addEventListener('click', ()=>{
+    if(!STATE.isPremium){ alert('프리미엄 열기 후 사용 가능합니다.'); blip(320,.08); return; }
+    drawOne({wantPremium:true}); blip(760,.1);
+  });
+  $('#btnNew').addEventListener('click', ()=>{ const premiumWanted = STATE.isPremium && Math.random()>.4; drawOne({wantPremium:premiumWanted}); blip(680,.1); });
+  $('#btnCopy').addEventListener('click', copyAll);
+
   drawOne({wantPremium:false});
 });
 </script>
