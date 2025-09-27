@@ -55,7 +55,7 @@
   <div class="wrap">
     <header>
       <div class="logo">인스타툰 주제 추천 <span class="pill">무료 + 프리미엄</span></div>
-      <div class="notice">무료: 주제·힌트·수익화 / 비밀번호 입력 시 프리미엄: 마케팅 포인트·전개 템플릿·참여 유도까지!</div>
+      <div class="notice">버튼을 눌러 <b>주제·힌트·수익화</b>를 받고, <b>프리미엄</b>을 열면 마케팅 포인트·전개 템플릿·참여 유도까지 확장됩니다.</div>
     </header>
 
     <!-- 프리미엄 게이트 -->
@@ -64,7 +64,7 @@
         <div>
           <div style="font-size:12px;color:#93c5fd;letter-spacing:.3px">PREMIUM ACCESS</div>
           <div style="font-weight:800;font-size:18px;margin-top:4px">프리미엄 열기</div>
-          <div class="notice">비밀번호 입력: <span class="mono">Whdirehfakdmf</span> (데모용)</div>
+          <div class="notice">비밀번호 입력 후 해제됩니다. (비밀번호는 공개하지 않습니다)</div>
         </div>
         <div style="display:flex;gap:8px;align-items:center">
           <input id="pw" type="password" placeholder="비밀번호 입력" />
@@ -111,7 +111,8 @@
           </select>
         </div>
         <div class="grow" style="display:flex;align-items:flex-end;gap:8px">
-          <button class="btn-primary" id="btnFree">오늘의 주제 (무료)</button>
+          <!-- (무료) 라벨 제거 완료 -->
+          <button class="btn-primary" id="btnFree">오늘의 주제</button>
           <button class="btn-premium" id="btnPremium">프리미엄 추천</button>
         </div>
       </div>
@@ -168,7 +169,23 @@
 <script>
 /* ===== 유틸 & 사운드 ===== */
 const $ = (q)=>document.querySelector(q);
-function beep(){try{const a=new (window.AudioContext||window.webkitAudioContext)();const o=a.createOscillator();const g=a.createGain();o.type='triangle';o.frequency.value=540;g.gain.setValueAtTime(0.0001,a.currentTime);g.gain.exponentialRampToValueAtTime(0.06,a.currentTime+.01);g.gain.exponentialRampToValueAtTime(0.0001,a.currentTime+.12);o.connect(g).connect(a.destination);o.start();o.stop(a.currentTime+.14);}catch(e){}}
+
+// 더 귀여운 'blip' 사운드 (모바일/데스크톱 클릭에서만 재생, 자동재생 제한 우회)
+function blip(freq=700, dur=0.12){
+  try{
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'sine';
+    o.frequency.value = freq;
+    g.gain.setValueAtTime(0.0001, ctx.currentTime);
+    g.gain.exponentialRampToValueAtTime(0.08, ctx.currentTime + 0.01);
+    g.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + dur);
+    o.connect(g).connect(ctx.destination);
+    o.start(); o.stop(ctx.currentTime + dur + 0.02);
+  }catch(e){}
+}
+
 function choice(arr){return arr[Math.floor(Math.random()*arr.length)]}
 function pickByCategory(arr,cat){return cat==='any'?arr:arr.filter(x=>x.category===cat)}
 
@@ -177,11 +194,12 @@ const freeData=[{category:'일상공감',difficulty:'쉬움',topic:'알람과의
 
 /* ===== 프리미엄 풀(조합형 160개) ===== */
 const BANK={categories:['일상공감','학교/학생','직장/사업','연애/관계','트렌드/밈','동물/사물의인화','취미/라이프','자기계발/마음'],settings:['비 오는 날','출근길','야자시간','동아리 방','카페 구석','지하철 2호선','엘리베이터','편의점','운동장','도서관'],protagonists:['우산','알람','식판','시험지','프리젠테이션 리모컨','지갑','휴대폰 배터리','양말','머그컵','캘린더'],twists:['주객전도','시간루프','의인화 심문극','반전 인터뷰','대체 현실','기억 상실','숨겨진 규칙','공포의 과장','소소한 영웅담'],beatsTemplates:['Hook(강한 공감 한 줄) → 문제(난관) → 시도(웃픈 해결) → 반전(의외의 시선) → CTA(저장/공유)','Hook(밈 오마주) → 갈등(불일치) → 성장(미세 변화) → 훈훈 엔딩 → CTA(댓글 유도)','Hook(캐릭터 소개) → 소동(예상 밖 반응) → 교훈(짧은 울림) → CTA(친구 소환)'],marketing:['해시태그 5개 고정(#공감툰 #일상툰 #짤툰 #기승전결 #루틴)','시리즈 넘버링(EP.01→02)로 저장 유도','커버 한 장 고정(브랜드 컬러/폰트 일관)','리포스트 이벤트(댓글에 친구 소환)','금·일 업로드(주 2회, 시간대 AB테스트)'],monetization:['굿즈(스티커/머그/배경화면) 번들','전자책/PDF 모음(에피소드 50선)','브랜드/매장 지역 협업 컷','유튜브 숏폼 묶음→광고 수익','멤버십(비하인드/원본 스케치)','연재 확장(네컷→롱폼)','교육/학교 행사 포스터','템플릿/폰트/프리셋 디지털 상품'],hints:['사물이 1인칭으로 불평→마지막에 주인공 응원','밈 1개만 절제 삽입(과하지 않게)','색 2~3개 제한 팔레트','표정 3종(기본/당황/뿌듯)만으로도 충분','반전 “사실 난 너 응원하고 있었어”','자막은 컷당 12자 내외'],ctas:['여러분은 어떤 선택? ①②③ 댓글!','내일 이어갈까요? 저장해두면 편해요!','공감 친구 태그 👉 @','당신 버전으로 리메이크 도전?'],difficultyWeights:[{name:'쉬움',weight:4},{name:'보통',weight:3},{name:'상세',weight:3}]};
+function choice(arr){return arr[Math.floor(Math.random()*arr.length)]}
 function generatePremiumPool(n=160){const out=[];const {categories,settings,protagonists,twists,monetization,hints,beatsTemplates,marketing,ctas,difficultyWeights}=BANK;const diffPool=difficultyWeights.flatMap(d=>Array(d.weight).fill(d.name));while(out.length<n){const category=choice(categories);const difficulty=choice(diffPool);const set=choice(settings);const pro=choice(protagonists);const tw=choice(twists);const topic=`${set}의 ${pro} — ${tw}`;const hint=`${choice(hints)} / 오마주: ${tw}`;const money=choice(monetization);const mPoint=choice(marketing);const beats=choice(beatsTemplates);const cta=choice(ctas);if(!out.some(x=>x.topic===topic)){out.push({category,difficulty,topic,hint,money,mPoint,beats,cta});}}return out;}
 const premiumPool=generatePremiumPool();
 
 /* ===== 상태/인증 ===== */
-const PW='Whdirehfakdmf';
+const PW='Whdirehfakdmf'; // 노출하지 않음(텍스트로 표시 제거)
 const STATE={isPremium:false,dataset:{free:freeData,premium:premiumPool}};
 function saveAuth(v){localStorage.setItem('instatoon_premium',v?'1':'0')}
 function loadAuth(){return localStorage.getItem('instatoon_premium')==='1'}
@@ -189,15 +207,17 @@ function reflectAuth(){document.querySelector('#authState').textContent=STATE.is
 
 /* ===== 추천 ===== */
 function drawOne({wantPremium=false}={}){const cat=$('#category').value;const diff=$('#difficulty').value;const pool=(wantPremium&&STATE.isPremium)?STATE.dataset.premium:STATE.dataset.free;let cand=pickByCategory(pool,cat);if(diff!=='any'){cand=cand.filter(x=>(x.difficulty||'보통')===diff);if(cand.length<1)cand=pool;}if(cand.length<1)cand=pool;const item=choice(cand);$('#outTopic').textContent=item.topic;$('#outHint').textContent=item.hint;$('#outMoney').textContent=item.money;if(STATE.isPremium){$('#outMarketing').textContent=item.mPoint||'—';$('#outBeats').textContent=item.beats||'—';$('#outCTA').textContent=item.cta||'—';}}
-function copyAll(){const lines=[`# 인스타툰 주제`,`- 주제: ${$('#outTopic').textContent}`,`- 힌트: ${$('#outHint').textContent}`,`- 수익화: ${$('#outMoney').textContent}`];if(STATE.isPremium){lines.push(`- 마케팅 포인트: ${$('#outMarketing').textContent}`,`- 전개 템플릿: ${$('#outBeats').textContent}`,`- 참여 유도: ${$('#outCTA').textContent}`);}navigator.clipboard.writeText(lines.join('\n')).then(()=>{beep();$('#btnCopy').textContent='복사 완료!';setTimeout(()=>$('#btnCopy').textContent='복사하기',1200);});}
+
+/* ===== 복사 ===== */
+function copyAll(){const lines=[`# 인스타툰 주제`,`- 주제: ${$('#outTopic').textContent}`,`- 힌트: ${$('#outHint').textContent}`,`- 수익화: ${$('#outMoney').textContent}`];if(STATE.isPremium){lines.push(`- 마케팅 포인트: ${$('#outMarketing').textContent}`,`- 전개 템플릿: ${$('#outBeats').textContent}`,`- 참여 유도: ${$('#outCTA').textContent}`);}navigator.clipboard.writeText(lines.join('\n')).then(()=>{blip(800,.1);const b=$('#btnCopy');b.textContent='복사 완료!';setTimeout(()=>b.textContent='복사하기',1200);});}
 
 /* ===== 바인딩 ===== */
 window.addEventListener('DOMContentLoaded',()=>{STATE.isPremium=loadAuth();reflectAuth();
-  $('#btnUnlock').addEventListener('click',()=>{const v=($('#pw').value||'').trim();if(v===PW){STATE.isPremium=true;saveAuth(true);reflectAuth();beep();drawOne({wantPremium:true});}else alert('비밀번호가 올바르지 않습니다.');});
-  $('#btnLock').addEventListener('click',()=>{STATE.isPremium=false;saveAuth(false);reflectAuth();beep();});
-  $('#btnFree').addEventListener('click',()=>{drawOne({wantPremium:false});beep();});
-  $('#btnPremium').addEventListener('click',()=>{if(!STATE.isPremium){alert('프리미엄 열기 후 사용 가능합니다.');return;}drawOne({wantPremium:true});beep();});
-  $('#btnNew').addEventListener('click',()=>{const premiumWanted=STATE.isPremium&&Math.random()>.4;drawOne({wantPremium:premiumWanted});beep();});
+  $('#btnUnlock').addEventListener('click',()=>{const v=($('#pw').value||'').trim();if(v===PW){STATE.isPremium=true;saveAuth(true);reflectAuth();blip(720,.12);drawOne({wantPremium:true});}else{alert('비밀번호가 올바르지 않습니다.');blip(320,.08);}});
+  $('#btnLock').addEventListener('click',()=>{STATE.isPremium=false;saveAuth(false);reflectAuth();blip(500,.08);});
+  $('#btnFree').addEventListener('click',()=>{drawOne({wantPremium:false});blip(700,.1);});
+  $('#btnPremium').addEventListener('click',()=>{if(!STATE.isPremium){alert('프리미엄 열기 후 사용 가능합니다.');blip(320,.08);return;}drawOne({wantPremium:true});blip(760,.1);});
+  $('#btnNew').addEventListener('click',()=>{const premiumWanted=STATE.isPremium&&Math.random()>.4;drawOne({wantPremium:premiumWanted});blip(680,.1);});
   $('#btnCopy').addEventListener('click',copyAll);
   drawOne({wantPremium:false});
 });
